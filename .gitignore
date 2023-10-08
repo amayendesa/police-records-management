@@ -1,0 +1,9 @@
+# ignore all logs
+*.log
+*.lock
+package-lock.json
+node_modules
+CHANGELOG.md
+ISSUE_TEMPLATE.md
+.DS_Store
+.idea

@@ -1,0 +1,117 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Aaron",
+      "lastName": "Mayendesa",
+      "password": "amayendesa",
+      "userType": "Admin",
+      "username": "amayendesa",
+      "createdDate": ""
+    },
+    {
+      "id": 2,
+      "firstName": "Partson",
+      "lastName": "Zunza",
+      "password": "pzunza",
+      "userType": "Admin",
+      "username": "pzunza",
+      "createdDate": ""
+    }
+  ],
+  "records": [
+    {
+      "id": 1,
+      "type": "HOMICIDE",
+      "officer": [
+        {
+          "id": 1,
+          "name": "officer 1",
+          "rank": "seagent",
+          "dateAssigned": ""
+        }
+      ],
+      "complaint": "",
+      "comments": [
+        {
+          "id": 1,
+          "comment": "",
+          "who": "",
+          "dateTime": ""
+        }
+      ],
+      "files": [
+        {
+          "id": 1,
+          "file": "",
+          "fileName": ""
+        }
+      ],
+      "status": "OPEN",
+      "dateTimeCommitted": "",
+      "dateTimeComplained": ""
+    },
+    {
+      "id": 2,
+      "type": "THEFT",
+      "officer": [
+        {
+          "id": 1,
+          "name": "officer 1",
+          "rank": "seagent"
+        }
+      ],
+      "complaint": "",
+      "comments": [
+        {
+          "id": 1,
+          "comment": "",
+          "who": "",
+          "dateTime": ""
+        }
+      ],
+      "files": [
+        {
+          "id": 1,
+          "file": ""
+        }
+      ],
+      "status": "CLOSED",
+      "dateTimeCommitted": "",
+      "dateTimeComplained": ""
+    },
+    {
+      "id": 3,
+      "type": "",
+      "officer": [],
+      "complaint": "",
+      "comments": [],
+      "files": [],
+      "status": "OPEN",
+      "dateTimeCommitted": "",
+      "dateTimeComplained": ""
+    },
+    {
+      "id": 4,
+      "type": "",
+      "officer": [],
+      "complaint": "stolen",
+      "comments": [],
+      "files": [],
+      "status": "OPEN",
+      "dateTimeCommitted": "2023-10-08T06:49",
+      "dateTimeComplained": "2023-10-15T06:49"
+    },
+    {
+      "id": 5,
+      "type": "NON DOMESTIC VIOLENCE",
+      "officer": [],
+      "complaint": "",
+      "comments": [],
+      "files": [],
+      "status": "CLOSED",
+      "dateTimeCommitted": "",
+      "dateTimeComplained": ""
+    }
+  ]
+}
