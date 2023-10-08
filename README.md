@@ -8,3 +8,7 @@ system runs with a json-server as a mock server for the application
 -- yarn install | to install all packages
 -- npm run serve | to run application server
 -- json-server --watch db.json | to run mock server
+
+**Password for application**
+
+-- username: amayendesa || password: amayendesa
