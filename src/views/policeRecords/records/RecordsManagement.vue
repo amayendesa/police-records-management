@@ -39,7 +39,8 @@
               <table id="example" class="table table-striped" style="width:100%">
                 <thead>
                 <tr>
-                  <th class="text-left">Type</th>
+                  <th class="text-left">Case Number</th>
+                  <th>Type</th>
                   <th>Status</th>
                   <th>Time Committed</th>
                   <th>Time Complained</th>
@@ -48,6 +49,7 @@
                 </thead>
                 <tbody>
                 <tr v-for="(row,i) in all_agents" :key="i">
+                  <td>{{ row.caseNumber }}</td>
                   <td>{{ row.type }}</td>
                   <td><a v-if="row.status==='OPEN'"
                          class="badge badge-danger">{{ row.status }}</a>
@@ -56,13 +58,13 @@
                   <td>{{ row.dateTimeCommitted }}</td>
                   <td>{{ row.dateTimeComplained }}</td>
                   <td><a
-                      @click="initTable=false;editedIndex=i;editedItem_agent=row;new_edit_form=true;tbFunction();"
+                      @click="initTable=false;editedIndex=i;record=row;new_edit_form=true;tbFunction();"
                   >
                     <i class="fas fa-eye text-primary"></i>
                   </a>
                     <a
                         class="mx-3"
-                        @click="initTable=false;editedIndex=i;editedItem_agent=row;new_edit_form=true;initTable=false;tbFunction();"
+                        @click="initTable=false;editedIndex=i;record=row;new_edit_form=true;initTable=false;tbFunction();"
                     >
                       <i class="fas fa-user-edit text-primary"></i>
                     </a>
@@ -100,6 +102,14 @@
           <!--          <p class="mb-0 text-sm">Create new project</p>-->
           <hr class="my-3 horizontal dark"/>
           <div class="mt-3 row">
+            <div class="mt-3 col-12 col-sm-6 mt-sm-0 col-md-4">
+              <label>Case Number</label>
+              <input
+                  v-model="record.caseNumber"
+                  placeholder="Case Number"
+                  class="multisteps-form__input form-control"
+              />
+            </div>
             <div class="mt-3 col-12 col-sm-6 mt-sm-0 col-md-4">
               <label>Type (choose)</label>
               <select v-model="record.type" class="form-control"
@@ -183,7 +193,7 @@
                     <div><a
                         data-bs-toggle="modal"
                         data-bs-target="#commissionModal"
-                        @click="editItemCommissionNew(i);"
+                        @click="editItemCommissionNew(i);comment=row"
                     >
                       <i class="fas fa-eye text-primary"></i>
                     </a>
@@ -191,7 +201,7 @@
                           data-bs-toggle="modal"
                           data-bs-target="#commissionModal"
                           class="mx-3"
-                          @click="editItemCommissionNew(i);"
+                          @click="editItemCommissionNew(i);comment=row"
                       >
                         <i class="fas fa-user-edit text-primary"></i>
                       </a>
@@ -234,7 +244,8 @@
               <table id="suspense" class="table table-striped" style="width:100%">
                 <thead>
                 <tr>
-                  <th class="text-left">Name</th>
+                  <th class="text-left">Officer Number</th>
+                  <th>Name</th>
                   <th>Rank</th>
                   <th>Date Assigned</th>
                   <th>Action</th>
@@ -242,6 +253,7 @@
                 </thead>
                 <tbody>
                 <tr v-for="(row,i) in record.officer" :key="i">
+                  <td>{{ row.officerNumber }}</td>
                   <td>{{ row.name }}</td>
                   <td>{{ row.rank }}</td>
                   <td>{{ row.dateAssigned }}</td>
@@ -249,7 +261,7 @@
                     <div><a
                         data-bs-toggle="modal"
                         data-bs-target="#suspenseModal"
-                        @click="editItemSuspenseNew(i);"
+                        @click="editItemSuspenseNew(i);officer=row"
                     >
                       <i class="fas fa-eye text-primary"></i>
                     </a>
@@ -257,7 +269,7 @@
                           data-bs-toggle="modal"
                           data-bs-target="#suspenseModal"
                           class="mx-3"
-                          @click="editItemSuspenseNew(i);"
+                          @click="editItemSuspenseNew(i);officer=row"
                       >
                         <i class="fas fa-user-edit text-primary"></i>
                       </a>
@@ -300,18 +312,20 @@
               <table id="directors" class="table table-striped" style="width:100%">
                 <thead>
                 <tr>
-                  <th class="text-left">File Name</th>
+                  <th class="text-left">File Number</th>
+                  <th>File Name</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="(row,i) in record.files" :key="i">
+                  <td>{{ row.fileNumber }}</td>
                   <td>{{ row.fileName }}</td>
                   <td>
                     <div><a
                         data-bs-toggle="modal"
                         data-bs-target="#directorModal"
-                        @click="editItemDirectorNew(i)"
+                        @click="editItemDirectorNew(i);file=row"
                     >
                       <i class="fas fa-eye text-primary"></i>
                     </a>
@@ -319,7 +333,7 @@
                           data-bs-toggle="modal"
                           data-bs-target="#directorModal"
                           class="mx-3"
-                          @click="editItemDirectorNew(i)"
+                          @click="editItemDirectorNew(i);file=row"
                       >
                         <i class="fas fa-user-edit text-primary"></i>
                       </a>
@@ -530,7 +544,17 @@
           <div class="modal-body">
 
             <div class="row">
-              <div class="mt-3 col-12 col-sm-6 mt-sm-0 col-md-4">
+
+              <div class="mt-3 col-12 col-sm-6 mt-sm-0 col-md-3">
+                <label> Officer's Number</label>
+                <input
+                    v-model="officer.officerNumber"
+                    placeholder="Officer's Number"
+                    class="multisteps-form__input form-control"
+                />
+              </div>
+
+              <div class="mt-3 col-12 col-sm-6 mt-sm-0 col-md-3">
                 <label> Officer's Name</label>
                 <input
                     v-model="officer.name"
@@ -538,7 +562,7 @@
                     class="multisteps-form__input form-control"
                 />
               </div>
-              <div class="mt-3 col-12 col-sm-6 mt-sm-0 col-md-4">
+              <div class="mt-3 col-12 col-sm-6 mt-sm-0 col-md-3">
                 <label>Rank </label>
                 <input
                     v-model="officer.rank"
@@ -546,7 +570,7 @@
                     class="multisteps-form__input form-control"
                 />
               </div>
-              <div class="mt-3 col-12 col-sm-6 mt-sm-0 col-md-4">
+              <div class="mt-3 col-12 col-sm-6 mt-sm-0 col-md-3">
                 <label> Date Assigned</label>
                 <input
                     v-model="officer.dateAssigned"
@@ -606,6 +630,14 @@
           <div class="modal-body">
 
             <div class="row">
+              <div class="mt-3 col-12 col-sm-6 mt-sm-0 col-md-4">
+                <label> File Number</label>
+                <input
+                    v-model="file.fileNumber"
+                    placeholder="File Number"
+                    class="multisteps-form__input form-control"
+                />
+              </div>
               <div class="mt-3 col-12 col-sm-6 mt-sm-0 col-md-4">
                 <label> File Name</label>
                 <input
@@ -683,6 +715,7 @@ export default {
     return {
       record: {
         id: null,
+        caseNumber: "",
         type: "THEFT",
         officer: [],
         complaint: "",
@@ -694,6 +727,7 @@ export default {
       },
       record_default: {
         id: null,
+        caseNumber: "",
         type: "THEFT",
         officer: [],
         complaint: "",
@@ -721,10 +755,10 @@ export default {
       },
       comment: {id:  null, comment: "", dateTime:  "", who: ""},
       comment_default: {id:  null, comment: "", dateTime:  "", who: ""},
-      file: {id: null, file: "", fileName: ""},
-      file_default: {id: null, file: "", fileName: ""},
-      officer: {id: null, name: "", rank:  "", dateAssigned: ""},
-      officer_default: {id: null, name: "", rank:  "", dateAssigned: ""},
+      file: {id: null, fileNumber: "", file: "", fileName: ""},
+      file_default: {id: null, fileNumber: "", file: "", fileName: ""},
+      officer: {id: null, officerNumber: "", name: "", rank:  "", dateAssigned: ""},
+      officer_default: {id: null, officerNumber: "", name: "", rank:  "", dateAssigned: ""},
       msg: [],
       mobile1V: true,
       mobile2V: true,
@@ -1272,8 +1306,8 @@ export default {
 
     editItemDirectorNew(index) {
       this.editedIndexDirector = index
-      this.director = JSON.parse(JSON.stringify(this.editedItem_agent.directors[index]))
-      this.dialogDirectorNew = true
+      // this.director = JSON.parse(JSON.stringify(this.editedItem_agent.directors[index]))
+      // this.dialogDirectorNew = true
     },
 
     // deleteItem (item) {
@@ -1313,8 +1347,8 @@ export default {
     async save() {
       if (this.editedIndex > -1) {
         try {
-          const v = await keyCloakFunction('PUT',
-              '/records_server/records', this.record)
+          const v = await keyCloakFunction('PATCH',
+              '/records_server/records/'+this.record.id, this.record)
           if (v.statusText === 'OK' || v.status === 304) {
             this.$swal({
               icon: "success",
@@ -1413,7 +1447,7 @@ export default {
           console.log(e)
         }
       }
-      this.editedItem_agent = JSON.parse(JSON.stringify(this.editedItem_agent_default))
+      this.record = JSON.parse(JSON.stringify(this.record_default))
       await this.initialize();
       this.close()
     },
@@ -1708,14 +1742,14 @@ export default {
 
     editItemSuspenseNew(index) {
       this.editedIndexSuspense = index
-      this.suspenseAccount = JSON.parse(JSON.stringify(this.editedItem_agent.agentCommissionAccount[index]))
-      this.dialogSuspenseNew = true
+      // this.suspenseAccount = JSON.parse(JSON.stringify(this.editedItem_agent.agentCommissionAccount[index]))
+      // this.dialogSuspenseNew = true
     },
 
     editItemCommissionNew(index) {
       this.editedIndexCommission = index
-      this.commissionAccount = JSON.parse(JSON.stringify(this.editedItem_agent.agentCommissionAccount[index]))
-      this.dialogCommissionNew = true
+      // this.commissionAccount = JSON.parse(JSON.stringify(this.editedItem_agent.agentCommissionAccount[index]))
+      // this.dialogCommissionNew = true
     },
 
   },
